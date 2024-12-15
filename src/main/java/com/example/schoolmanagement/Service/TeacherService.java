@@ -21,15 +21,14 @@ public class TeacherService {
     private final AddressRepository addressRepository;
     private final CourseRepository courseRepository;
 
-    public List<TeacherDTO> getTeacher (){
+   public List<TeacherDTO> getTeacher (){
         List<Teacher> teachers= teacherRepository.findAll();
         List<TeacherDTO> teacherDTOS= new ArrayList<>();
-        List<Course> courses = courseRepository.findAll();
         List<String> curseNames= new ArrayList<>();
         for (Teacher t :teachers){
-            for (Course c: courses){
-              String curseName = c.getName();
-              curseNames.add(curseName);
+            for (Course c:t.getCourses()){
+             String  curseName=  c.getName();
+             curseNames.add(curseName);
             }
 
             TeacherDTO teacherDTO= new TeacherDTO(t.getName(),t.getAge(),t.getEmail(),curseNames);
